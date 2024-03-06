@@ -14,6 +14,9 @@ public class Principal {
 			/* Libro */
 		Libro bookieWookie = new Libro("Wookie's Recommendations", "Chewookie", 5, 5);
 		
+			/* Articulo */
+		Articulo vouiton = new Articulo("Vouiton", 299.99, 20);
+		
 		/* CuentaCorriente Operations */
 			/* Initial Prints */
 		System.out.println(accountA);
@@ -38,7 +41,17 @@ public class Principal {
 		//Return
 		bookieWookie.returnBook();
 		System.out.println(bookieWookie);
-
+		
+		
+		/* Operaciones Articulo */
+		System.out.println(vouiton);
+		System.out.println(vouiton.getPVP());
+		System.out.println(vouiton.getPVPDescuento(10));
+		
+		//Vender
+		vouiton.vender(10);
+		vouiton.almacenar(5);
+		System.out.println(vouiton);
 		
 	}
 
