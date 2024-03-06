@@ -46,5 +46,9 @@ public class Menu {
 		
 	}//Fin toString
 	
+	/**
+	 * Metodo para seleccionar una opción del listado
+	 */
+	
 
 }
