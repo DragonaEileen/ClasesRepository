@@ -1,7 +1,5 @@
 package ejercicioscrud;
 
-import java.util.Arrays;
-
 /**
  * Clase para generar un menu para cada ejercicio
  */
@@ -11,7 +9,7 @@ public class Menu {
 	/**
 	 * Listado de opciones para cada ejercicio
 	 */
-	String listado[];
+	private String listado[];
 	
 	/* Constructor */
 	/**
@@ -25,6 +23,7 @@ public class Menu {
 		
 	}//Fin Constructor
 
+
 	/* Metodos */
 	/**
 	 * Metodo para imprimir el menu por pantalla
@@ -37,7 +36,7 @@ public class Menu {
 		/* Recorremos */
 		for(int i = 0; i < this.listado.length; i++) {
 			
-			listaOpciones += i + ".- " + this.listado[i] + ". \n";
+			listaOpciones += (i+1) + ".- " + this.listado[i] + ". \n";
 			
 		}//Fin FOR --> recorre array
 		
@@ -46,9 +45,4 @@ public class Menu {
 		
 	}//Fin toString
 	
-	/**
-	 * Metodo para seleccionar una opción del listado
-	 */
-	
-
 }

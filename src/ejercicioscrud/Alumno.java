@@ -83,5 +83,21 @@ public class Alumno {
 		this.averageGrade = averageGrade;
 		
 	}//Fin setAverageGrade()
+
+	/* Metodos */
+	/**
+	 * Método para convertir la información del alumno en una String
+	 * 
+	 * @return stringAlumno Cadena con la información del alumno
+	 */
+	public String toString() {
+		
+		String stringAlumno = "Alumno: " + studentName + ". Nota Media: " + averageGrade;
+		
+		return stringAlumno;
+		
+	}//Fin toString
+	
+	
 	
 }
