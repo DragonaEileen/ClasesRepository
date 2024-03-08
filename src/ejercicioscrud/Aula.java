@@ -7,7 +7,7 @@ import java.util.Scanner;
  * 
  * @author Eileen
  */
-public class Aula {
+public class Aula extends Object{
 
 	/* Atributos */
 	/**
