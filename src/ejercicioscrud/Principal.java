@@ -75,10 +75,14 @@ public class Principal {
 							System.out.print("Opción Elegida: ");
 							chosenOption = scannercito.nextInt();
 							
+							//Scanner Cleaning
+							System.out.print("Confirmar (Introduzca cualquier digito): ");
+							scannercito.nextLine();
+							
 						}while(chosenOption < 1 || chosenOption > OPCIONES_ALUMNOS.length);
 						
 						//Llamamos a la función equivalente
-						aulaDePrueba.startEjercicio(chosenOption);
+						aulaDePrueba.startEjercicio(chosenOption, scannercito);
 						
 					}while(chosenOption != OPCIONES_ALUMNOS.length);
 			

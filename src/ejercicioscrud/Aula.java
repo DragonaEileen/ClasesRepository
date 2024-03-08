@@ -146,10 +146,10 @@ public class Aula {
 		
 		/* Busqueda del alumno en el Aula */
 		//Recorremos el Aula hasta dar con el Alumno o terminar de recorrerla
-		while(!hasSucceded || posicion < this.alumnosEnAula.length) {
+		while(!hasSucceded && posicion < this.alumnosEnAula.length) {
 			
 			//Comprobamos si el nombre coincide con el alumno en la posicion del contador
-			if(nombreAlumno.equals(this.alumnosEnAula[posicion].getStudentName())) {
+			if(this.alumnosEnAula[posicion] != null && nombreAlumno.equals(this.alumnosEnAula[posicion].getStudentName())) {
 				
 				//"Borramos el alumno", es decir, lo sustituimos por null y ya llegará el recolector de basura
 				this.alumnosEnAula[posicion] = null;
@@ -173,14 +173,14 @@ public class Aula {
 	 * 
 	 * @param chosenOption
 	 */
-	public void startEjercicio(int chosenOption) {
+	public void startEjercicio(int chosenOption, Scanner scannercito) {
 		
 		/* Declaraciones */
 			/* Boolean que indica el exito de operaciones */
 		boolean hasSucceded;
 			
 			/* Nombre del alumno a añadir */
-		String nombreAlumno;
+		String nombreAlumno = "";
 		
 			/* Nota Media del Alumno a añadir */
 		double notaMedia = 0;
@@ -192,26 +192,30 @@ public class Aula {
 			case 1:
 				
 				//Imprimimos los datos
-				System.out.println(toString());
+				System.out.println("\n" + toString());
 				break;
 				
 			//El segundo caso añade un alumno al Aula
 			case 2:
 				
-				/* Apertura de Scanner */
-				Scanner scannerOpcion2 = new Scanner(System.in);
-				
 				/* Recogemos los datos del alumno a añadir */
 				//Usamos un do-while para que la nota media no supere ni diez ni sea menor a 0
 				do {
 					
+					//Scanner cleaning
+					nombreAlumno = scannercito.nextLine();
+					
 					//Nombre
 					System.out.print("Introduce el nombre del alumno: ");
-					nombreAlumno = scannerOpcion2.nextLine();
+					nombreAlumno = scannercito.nextLine();
+					
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.next();
 					
 					//Nota Media
 					System.out.print("Introduce la nota media del alumno: ");
-					notaMedia = scannerOpcion2.nextDouble();
+					notaMedia = scannercito.nextDouble();
 					
 				}while(notaMedia < 0 || notaMedia > 10);
 				
@@ -229,28 +233,25 @@ public class Aula {
 					
 				}//Fin IF --> Exito
 				
-				/* Cierre de Scanner */
-				scannerOpcion2.close();
-				
 				//Break Switch Statement
 				break;
 				
 			//El tercer caso modifica un alumno del aula
 			case 3:
 				
-				/* Apertura de Scanner */
-				Scanner scannerOpcion3 = new Scanner(System.in);
+				//Scanner cleaning
+				nombreAlumno = scannercito.nextLine();
 				
 				/* Recogemos el nombre del Alumno a modificar */
 				System.out.print("Introduce el nombre del alumno a modificar: ");
-				nombreAlumno = scannerOpcion3.nextLine();
+				nombreAlumno = scannercito.nextLine();
 				
 				/* Recogemos la nueva nota */
 				//Do-While evita numeros menores a 0 o mayores a 10
 				do {
 					
 					System.out.print("Introduce la nueva nota: ");
-					notaMedia = scannerOpcion3.nextDouble();
+					notaMedia = scannercito.nextDouble();
 					
 				}while(notaMedia < 0 || notaMedia > 10);
 				
@@ -267,22 +268,23 @@ public class Aula {
 					System.out.println("La operación no se ha podido realizar");
 					
 				}//Fin IF --> Exito
-				
-				/* Cierre de Scanner */
-				scannerOpcion3.close();
-				
+
 				/* Switch Break Statement */
 				break;
 				
 			//Opción para borrar un alumno
 			case 4:
 				
-				/* Apertura de Scanner */
-				Scanner scannerOpcion4 = new Scanner(System.in);
+				//Scanner cleaning
+				nombreAlumno = scannercito.nextLine();
 				
 				/* Recogida del Nombre del Alumno */
 				System.out.print("Introduce el nombre del alumno a borrar: ");
-				nombreAlumno = scannerOpcion4.nextLine();
+				nombreAlumno = scannercito.nextLine();
+				
+				//Scanner Cleaning
+				System.out.print("Confirmar (Pulse cualquier tecla): ");
+				scannercito.next();
 				
 				/* Ejecutamos la función de borrado */
 				hasSucceded = deleteAlumno(nombreAlumno);
@@ -297,10 +299,7 @@ public class Aula {
 					System.out.println("La operación no se ha podido realizar");
 					
 				}//Fin IF --> Exito
-				
-				/* Cierre de Scanner */
-				scannerOpcion4.close();
-				
+
 				/* Switch Break Statement */
 				break;
 				
