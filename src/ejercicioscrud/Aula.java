@@ -35,7 +35,7 @@ public class Aula extends Object{
 		for(Alumno alumno: alumnosEnAula) {
 			
 			//Si alumno no es nulo, se añade a la String
-			if(!(alumno == null)) {alumniString += "-->" + alumno + "\n";};
+			if(alumno != null) {alumniString += "-->" + alumno + "\n";};
 			
 		}//Fin FOR-EACH --> Recorre Array
 		

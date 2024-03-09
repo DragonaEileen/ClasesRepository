@@ -3,7 +3,18 @@ package ejercicioscrud;
 import java.util.Scanner;
 
 public class Principal {
+	
+	/* Atributos */
+	/**
+	 * Aula de Alumnos
+	 */
+	private static Aula aulaDePrueba = new Aula();
+	
+	/**
+	 * Almacen de Articulos
+	 */
 
+	/* Metodo Main */
 	public static void main(String[] args) {
 
 		/* Declaraciones */
@@ -36,12 +47,6 @@ public class Principal {
 			/* Menú de menús */
 		Menu mainMenu = new Menu(OPCIONES_MAIN);
 		
-			/* Menú del Ejercicio */
-		Menu menuEjercicio = null;
-		
-			/* Aula de Alumnos */
-		Aula aulaDePrueba = new Aula();
-		
 			/* Opción elegida de los menus */
 		int chosenOption;
 		
@@ -71,71 +76,17 @@ public class Principal {
 			//Caso del Ejercicio de los Alumnos
 				case 1:
 					
-					//Se selecciona el Menu Alumnos
-					menuEjercicio = new Menu(OPCIONES_ALUMNOS);
-					
-					/* Operaciones de Alumnos */
-					do {
-						
-						//Se imprime el nuevo menu
-						System.out.println(menuEjercicio);
-						
-						//Checkeamos que se nos introduce una opción entre 1 y el máximo numero de opciones: DO-WHILE
-						do {
-							
-							System.out.print("Opción Elegida: ");
-							chosenOption = scannercito.nextInt();
-							
-							//Scanner Cleaning
-							System.out.print("Confirmar (Introduzca cualquier digito): ");
-							scannercito.nextLine();
-							
-						}while(chosenOption < 1 || chosenOption > OPCIONES_ALUMNOS.length);
-						
-						//Llamamos a la función equivalente
-						aulaDePrueba.startEjercicio(chosenOption, scannercito);
-						
-					}while(chosenOption != OPCIONES_ALUMNOS.length);
-			
-					//Reset chosenOption si se sale 
-					chosenOption = 0;
+					//Llamamos a la elección del ejercicio
+					eleccionDeEjercicio(OPCIONES_ALUMNOS, chosenOption, scannercito);
 					
 					break;
 					
 			//Caso del ejercicio del Almacen
 				case 2:
 					
-					//Se selecciona el Menu Almacen
-					menuEjercicio = new Menu(OPCIONES_ALMACEN);
-					
-					/* Operaciones de Almacen */
-					do {
-						
-						//Se imprime el nuevo menu
-						System.out.println(menuEjercicio);
-						
-						//Checkeamos que se nos introduce una opción entre 1 y el máximo numero de opciones: DO-WHILE
-						do {
-							
-							System.out.print("Opción Elegida: ");
-							chosenOption = scannercito.nextInt();
-							
-							//Scanner Cleaning
-							System.out.print("Confirmar (Introduzca cualquier digito): ");
-							scannercito.nextLine();
-							
-						}while(chosenOption < 1 || chosenOption > OPCIONES_ALUMNOS.length);
-						
-						//Llamamos a la función equivalente
-						aulaDePrueba.startEjercicio(chosenOption, scannercito);
-						
-					}while(chosenOption != OPCIONES_ALMACEN.length);
-			
-					//Reset chosenOption si se sale 
-					chosenOption = 0;
+					eleccionDeEjercicio(OPCIONES_ALMACEN, chosenOption, scannercito);
 					
 					break;
-					
 					
 				default:
 					
@@ -157,11 +108,11 @@ public class Principal {
 	 * @param listadoDeObjetos Lista de Objetos con la que el ejercicio va a trabajar
 	 * @param scannercito Scanner con el objetivo de no abrir dos scanners al mismo tiempo
 	 */
-	private void eleccionDeEjercicio(final String[] OPCIONES, Object objetoPrincipal, Scanner scannercito) {
+	private static void eleccionDeEjercicio(final String[] OPCIONES, int menuElegido, Scanner scannercito) {
 		
 		/* Declaraciones */
 			/* Menú del ejercicio */
-		Menu menuEjercicio = null;
+		Menu menuEjercicio;
 		
 			/* Opción elegida de los menus */
 		int chosenOption;
@@ -188,9 +139,20 @@ public class Principal {
 				
 			}while(chosenOption < 1 || chosenOption > OPCIONES.length);
 			
-			//Llamamos a la función equivalente
-			objetoPrincipal.startEjercicio(chosenOption, scannercito);
+			//Llamamos a la función equivalente con un switch
+			switch(menuElegido) {
 			
+			case 1: 
+				
+				aulaDePrueba.startEjercicio(chosenOption, scannercito);
+				break;
+			
+			case 2:
+				
+				
+				
+			};	
+				
 		}while(chosenOption != OPCIONES.length);
 
 		//Reset chosenOption si se sale 
