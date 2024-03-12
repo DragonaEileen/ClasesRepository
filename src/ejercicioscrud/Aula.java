@@ -7,13 +7,13 @@ import java.util.Scanner;
  * 
  * @author Eileen
  */
-public class Aula extends Object{
+public class Aula {
 
 	/* Atributos */
 	/**
 	 *  Opciones del menu aula 
 	 */
-	final String[] OPCIONES_ALUMNOS = new String[] {
+	private static final String[] OPCIONES_ALUMNOS = new String[] {
 			 "Listado",
 			 "Nuevo Alumno",
 			 "Modificar",
@@ -23,13 +23,13 @@ public class Aula extends Object{
 	/**
 	 * Menú de aula
 	 */
-	public Menu menuAula = new Menu(this.OPCIONES_ALUMNOS);
+	public static Menu menuAula = new Menu(OPCIONES_ALUMNOS);
 	
 	/**
 	 * Listado de los ALumnos que hay en el Aula
 	 */
 	private Alumno[] alumnosEnAula = new Alumno[30];
-
+	
 	
 	/* Constructor */
 	/* No necesitamos constructor por que no vamos a recibir ni modificar aytributos */

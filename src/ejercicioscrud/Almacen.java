@@ -13,7 +13,7 @@ public class Almacen {
 	/**
 	 *  Opciones GESTISIMAL
 	 */
-	final String[] OPCIONES_ALMACEN = new String[] {
+	private static final String[] OPCIONES_ALMACEN = new String[] {
 			"Listado",
 			"Alta",
 			"Baja",
@@ -23,20 +23,19 @@ public class Almacen {
 			"Salir"};
 	
 	/**
-	 * Menú del almacen
-	 */
-	public Menu menuAlmacen = new Menu(this.OPCIONES_ALMACEN);
-	
-	/**
 	 * Cantidad máxima de articulos en el almacen
 	 */
 	public static final int MAX_ARTICULOS = 20;
 	
 	/**
+	 * Menú del almacen
+	 */
+	public static Menu menuAlmacen = new Menu(OPCIONES_ALMACEN);
+	
+	/**
 	 * Listado de Articulos
 	 */
 	private Articulo[] listadoDeArticulos = new Articulo[MAX_ARTICULOS];
-	
 	
 	/* Constructor */
 	/* Usamos el constructor sin parametros por defecto */
@@ -271,143 +270,5 @@ public class Almacen {
 		return hasSucceded;
 		
 	}//Fin salidaDeMercancia()
-	
-	
-	/**
-	 * Método para ejecutar la opción elegida en el menu 
-	 * 
-	 * @param chosenOption Opción elegida
-	 * @param scannercito Scanner
-	 */
-	public void startEjercicio(int chosenOption, Scanner scannercito) {
-		
-		/* Declaraciones */
-			/* Boolean que indica el exito de operaciones */
-		boolean hasSucceded;
-			
-		//Switch para ejecutar el metodo de la opción elegida dada
-		switch(chosenOption) {
-		
-			//El primer caso muestra los alumnos en el Aula
-			case 1:
-				
-				//Imprimimos los datos
-				System.out.println("\n" + toString());
-				break;
-				
-			//El segundo caso añade un alumno al Aula
-			case 2:
-				
-				/* Recogemos los datos del alumno a añadir */
-				//Usamos un do-while para que la nota media no supere ni diez ni sea menor a 0
-				do {
-					
-					//Scanner cleaning
-					nombreAlumno = scannercito.nextLine();
-					
-					//Nombre
-					System.out.print("Introduce el nombre del alumno: ");
-					nombreAlumno = scannercito.nextLine();
-					
-					//Scanner Cleaning
-					System.out.print("Confirmar (Pulse cualquier tecla): ");
-					scannercito.next();
-					
-					//Nota Media
-					System.out.print("Introduce la nota media del alumno: ");
-					notaMedia = scannercito.nextDouble();
-					
-				}while(notaMedia < 0 || notaMedia > 10);
-				
-				/* Ejecutamos la función de añadir alumno */
-				hasSucceded = addAlumno(nombreAlumno, notaMedia);
-				
-				//Mensaje de Exito
-				if(hasSucceded) {
-					
-					System.out.println("Operación realizada con éxito.");
-					
-				} else {
-					
-					System.out.println("La operación no se ha podido realizar");
-					
-				}//Fin IF --> Exito
-				
-				//Break Switch Statement
-				break;
-				
-			//El tercer caso modifica un alumno del aula
-			case 3:
-				
-				//Scanner cleaning
-				nombreAlumno = scannercito.nextLine();
-				
-				/* Recogemos el nombre del Alumno a modificar */
-				System.out.print("Introduce el nombre del alumno a modificar: ");
-				nombreAlumno = scannercito.nextLine();
-				
-				/* Recogemos la nueva nota */
-				//Do-While evita numeros menores a 0 o mayores a 10
-				do {
-					
-					System.out.print("Introduce la nueva nota: ");
-					notaMedia = scannercito.nextDouble();
-					
-				}while(notaMedia < 0 || notaMedia > 10);
-				
-				/* Ejecutamos la funcion de modificar alumno */
-				hasSucceded = modifyAlumno(nombreAlumno, notaMedia);
-				
-				//Mensaje de exito
-				if(hasSucceded) {
-					
-					System.out.println("Operación realizada con éxito.");
-					
-				} else {
-					
-					System.out.println("La operación no se ha podido realizar");
-					
-				}//Fin IF --> Exito
-
-				/* Switch Break Statement */
-				break;
-				
-			//Opción para borrar un alumno
-			case 4:
-				
-				//Scanner cleaning
-				nombreAlumno = scannercito.nextLine();
-				
-				/* Recogida del Nombre del Alumno */
-				System.out.print("Introduce el nombre del alumno a borrar: ");
-				nombreAlumno = scannercito.nextLine();
-				
-				//Scanner Cleaning
-				System.out.print("Confirmar (Pulse cualquier tecla): ");
-				scannercito.next();
-				
-				/* Ejecutamos la función de borrado */
-				hasSucceded = deleteAlumno(nombreAlumno);
-				
-				//Mensaje de éxito
-				if(hasSucceded) {
-					
-					System.out.println("Operación realizada con éxito.");
-					
-				} else {
-					
-					System.out.println("La operación no se ha podido realizar");
-					
-				}//Fin IF --> Exito
-
-				/* Switch Break Statement */
-				break;
-				
-			default:
-				
-				
-		}//Fin Switch --> Ejecutar Opción
-		
-	}//Fin startEjercicio()
 	
 }

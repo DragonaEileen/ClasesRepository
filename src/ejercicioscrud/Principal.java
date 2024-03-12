@@ -67,58 +67,39 @@ public class Principal {
 	private static void eleccionDeEjercicio(int menuElegido) {
 		
 		/* Declaraciones */
-			/* Aula de Alumnos */
-		Aula aulaDePrueba;
-		
-			/* Contador de cuantas veces se ha elegido la opción aula */
-		int contadorAula = 0;
-		
-			/* Almacen de Articulos */
-		Almacen almacenDePrueba;
-			
-			/* Contador de cuantas veces se ha elegido la opción almacen */
-		int contadorAlmacen = 0;
-		
 			/* Opción elegida de los menus */
 		int chosenOption;
 		
-		/* Operaciones */
-		//Se selecciona el Menu Almacen
+			/* Longitud de menu */
+		int menuLength = 0;
 		
-		/* Operaciones de Almacen */
+		/* Operaciones */
 		do {
 			
 			//Se imprime el nuevo menu
-			System.out.println(menuEjercicio);
+			menuLength = menuSwitch(menuElegido);
 			
 			//Checkeamos que se nos introduce una opción entre 1 y el máximo numero de opciones: DO-WHILE
-			do {
-				
-				System.out.print("Opción Elegida: ");
-				chosenOption = scannercito.nextInt();
-				
-				//Scanner Cleaning
-				System.out.print("Confirmar (Introduzca cualquier digito): ");
-				scannercito.nextLine();
-				
-			}while(chosenOption < 1 || chosenOption > OPCIONES.length);
+			chosenOption = optionChecker();
 			
 			//Llamamos a la función equivalente
-			startEjercicio(chosenOption, scannercito);
+			startEjercicio(chosenOption);
 				
-		}while(chosenOption != OPCIONES.length);
+		}while(chosenOption != menuLength.length);
 
 		//Reset chosenOption si se sale 
 		chosenOption = 0;
 		
 	}//Fin eleccionDeEjercicio()
 
+	
+
 	/**
 	 * Método para ejecutar la opción elegida en el menu 
 	 * 
 	 * @param chosenOption
 	 */
-	private static void startEjercicio(int chosenOption, Scanner scannercito) {
+	private static void startEjercicio(int chosenOption) {
 		
 		/* Declaraciones */
 			/* Boolean que indica el exito de operaciones */
@@ -246,6 +227,49 @@ public class Principal {
 			System.out.println("La operación no se ha podido realizar");
 			
 		}//Fin IF --> Exito
+	}//Fin successMessage()
+	
+	/**
+	 * Método que coge recoge una opción
+	 * @return chosenOption Opción escogida
+	 */
+	private static int optionChecker() {
+		int chosenOption;
+		do {
+			
+			System.out.print("Opción Elegida: ");
+			chosenOption = scannercito.nextInt();
+			
+			//Scanner Cleaning
+			System.out.print("Confirmar (Introduzca cualquier digito): ");
+			scannercito.nextLine();
+			
+		}while(chosenOption < 1 || chosenOption > item.length);
+		return chosenOption;
+	}
+	
+	/**
+	 * Método que muestra un menú según el menuElegido
+	 * 
+	 * @param menuElegido Opción elegida
+	 */
+	public static void menuSwitch(int menuElegido) {
+		
+		/* Declaraciones */
+		switch(menuElegido) {
+		
+		case 1:
+			
+			System.out.println(Aula.menuAula);
+			break;
+			
+		case 2:
+			
+			System.out.println(Almacen.menuAlmacen);
+			break;
+		
+		};
+		
 	}
 	
 }
