@@ -13,7 +13,7 @@ public class Aula {
 	/**
 	 *  Opciones del menu aula 
 	 */
-	private static final String[] OPCIONES_ALUMNOS = new String[] {
+	public static final String[] OPCIONES_ALUMNOS = new String[] {
 			 "Listado",
 			 "Nuevo Alumno",
 			 "Modificar",

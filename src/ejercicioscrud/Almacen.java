@@ -13,7 +13,7 @@ public class Almacen {
 	/**
 	 *  Opciones GESTISIMAL
 	 */
-	private static final String[] OPCIONES_ALMACEN = new String[] {
+	public static final String[] OPCIONES_ALMACEN = new String[] {
 			"Listado",
 			"Alta",
 			"Baja",

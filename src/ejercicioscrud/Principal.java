@@ -1,13 +1,30 @@
 package ejercicioscrud;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Principal {
 	
-	/* Declaramos un scanner estatico para que toda la clase lo pueda utilizar */
+	/*
+	 * Declaramos un scanner estatico para que toda la clase lo pueda utilizar
+	 */
 	public static Scanner scannercito;
+	
+	/* 
+	 * Objeto Aula que va a guardar alumnos y sobre el que se van a hacer las operaciones
+	 * 	del ejercicio 1
+	 */
+	public static Aula aulaDePrueba;
+	
+	/* 
+	 * Objeto Almacen que va a guardar articulos y sobre el que se van a hacer las operaciones
+	 * 	del ejercicio 2
+	 */
+	public static Almacen gestisimal;
+	
+	/**/
 
-	/* Metodo Main */
+	/* MAIN */
 	public static void main(String[] args) {
 
 		/* Declaraciones */
@@ -18,8 +35,6 @@ public class Principal {
 				"Pizzeria", 
 				"Cuentas Corrientes",
 				"Salir"};
-		
-		
 		
 			/* Menú de menús */
 		Menu mainMenu = new Menu(OPCIONES_MAIN);
@@ -73,86 +88,53 @@ public class Principal {
 			/* Longitud de menu */
 		int menuLength = 0;
 		
+			/* Array de Contadores de cuantas veces se ha elegido un menú */
+		int[] contadores = new int[4];
+		
 		/* Operaciones */
 		do {
+			
+			cuentaOpciones(menuElegido, contadores);
 			
 			//Se imprime el nuevo menu
 			menuLength = menuSwitch(menuElegido);
 			
 			//Checkeamos que se nos introduce una opción entre 1 y el máximo numero de opciones: DO-WHILE
-			chosenOption = optionChecker();
+			chosenOption = optionChecker(menuLength);
 			
 			//Llamamos a la función equivalente
-			startEjercicio(chosenOption);
+			startEjercicio(menuElegido, chosenOption);
 				
-		}while(chosenOption != menuLength.length);
+		}while(chosenOption != menuLength);
 
-		//Reset chosenOption si se sale 
-		chosenOption = 0;
-		
 	}//Fin eleccionDeEjercicio()
-
-	
 
 	/**
 	 * Método para ejecutar la opción elegida en el menu 
 	 * 
-	 * @param chosenOption
+	 * @param menuElegido
+	 * @param chosenOption 
 	 */
-	private static void startEjercicio(int chosenOption) {
+	private static void startEjercicio(int menuElegido, int chosenOption) {
 		
 		/* Declaraciones */
 			/* Boolean que indica el exito de operaciones */
 		boolean hasSucceded;
-			
-			/* Nombre del alumno a añadir */
-		String nombreAlumno = "";
-		
-			/* Nota Media del Alumno a añadir */
-		double notaMedia = 0;
 		
 		//Switch para ejecutar el metodo de la opción elegida dada
-		switch(chosenOption) {
+		hasSucceded = switch(chosenOption) {
 		
-			//El primer caso muestra los alumnos en el Aula
+			//El primer caso muestra el listado
 			case 1:
 				
-				//Imprimimos los datos
-				System.out.println("\n" + toString());
-				break;
+				switchListado(menuElegido);
 				
-			//El segundo caso añade un alumno al Aula
+				yield true;
+				
+			//El segundo caso añade un subobjeto
 			case 2:
 				
-				/* Recogemos los datos del alumno a añadir */
-				//Usamos un do-while para que la nota media no supere ni diez ni sea menor a 0
-				do {
-					
-					//Scanner cleaning
-					nombreAlumno = scannercito.nextLine();
-					
-					//Nombre
-					System.out.print("Introduce el nombre del alumno: ");
-					nombreAlumno = scannercito.nextLine();
-					
-					//Scanner Cleaning
-					System.out.print("Confirmar (Pulse cualquier tecla): ");
-					scannercito.next();
-					
-					//Nota Media
-					System.out.print("Introduce la nota media del alumno: ");
-					notaMedia = scannercito.nextDouble();
-					
-				}while(notaMedia < 0 || notaMedia > 10);
 				
-				/* Ejecutamos la función de añadir alumno */
-				hasSucceded = addAlumno(nombreAlumno, notaMedia);
-				
-				//Mensaje de éxito
-				successMessage(hasSucceded);
-				
-				//Break Switch Statement
-				break;
 				
 			//El tercer caso modifica un alumno del aula
 			case 3:
@@ -210,6 +192,25 @@ public class Principal {
 				
 		}//Fin Switch --> Ejecutar Opción
 		
+	}
+
+	/**
+	 * @param menuElegido
+	 */
+	private static void switchListado(int menuElegido) {
+		switch(menuElegido) {
+		
+		case 1:
+			
+			System.out.println("\n" + aulaDePrueba);
+			break;
+			
+		case 2:
+			
+			System.out.println("\n" + gestisimal);
+			break;
+			
+		};//Fin Switch Interno
 	}//Fin startEjercicio()
 
 	
@@ -217,7 +218,7 @@ public class Principal {
 	/**
 	 * Método para imprimir si la operación ha sido realizada con exito
 	 */
-	private void successMessage(boolean hasSucceded) {
+	private static void successMessage(boolean hasSucceded) {
 		if(hasSucceded) {
 			
 			System.out.println("Operación realizada con éxito.");
@@ -231,9 +232,10 @@ public class Principal {
 	
 	/**
 	 * Método que coge recoge una opción
+	 * @param menuLength 
 	 * @return chosenOption Opción escogida
 	 */
-	private static int optionChecker() {
+	private static int optionChecker(int menuLength) {
 		int chosenOption;
 		do {
 			
@@ -244,7 +246,7 @@ public class Principal {
 			System.out.print("Confirmar (Introduzca cualquier digito): ");
 			scannercito.nextLine();
 			
-		}while(chosenOption < 1 || chosenOption > item.length);
+		}while(chosenOption < 1 || chosenOption > menuLength);
 		return chosenOption;
 	}
 	
@@ -252,24 +254,71 @@ public class Principal {
 	 * Método que muestra un menú según el menuElegido
 	 * 
 	 * @param menuElegido Opción elegida
+	 * @return 
 	 */
-	public static void menuSwitch(int menuElegido) {
+	public static int menuSwitch(int menuElegido) {
 		
 		/* Declaraciones */
-		switch(menuElegido) {
+			/* Numero de opciones del menu a devolver */
+		int menuLength = 0;
+		
+		//Usamos un switch para imprimir el menu, no necesitamos breaks por el yield
+		menuLength = switch(menuElegido) {
 		
 		case 1:
 			
+			//Se imprime el menú
 			System.out.println(Aula.menuAula);
-			break;
+			
+			//Se asigna el numero de opciones
+			yield Aula.OPCIONES_ALUMNOS.length;
 			
 		case 2:
 			
+			//Se imprime el menu
 			System.out.println(Almacen.menuAlmacen);
-			break;
+			
+			//Se asigna el numero de opciones
+			yield Almacen.OPCIONES_ALMACEN.length;
+			
+		default:
+			
+			throw new IllegalArgumentException("Unexpected value: " + menuElegido);
 		
 		};
 		
-	}
+		return menuLength;
+		
+	}//Fin menuSwitch
+	
+	/*
+	 * Metodo que cuenta las veces que se ha elegido una opción, y si no se había escogido anteriormente
+	 * 	se construye el objeto
+	 */
+	private static void cuentaOpciones(int menuElegido, int[] contadores) {
+		
+		//Comprobamos si el menu se a elegido previamente, si no, construimos el objeto ahora
+		if(contadores[menuElegido-1] == 0) {
+			
+			switch(menuElegido) {
+			
+			case 1:
+				
+				aulaDePrueba = new Aula();
+				break;
+				
+			case 2:
+				
+				gestisimal = new Almacen();
+				break;
+			
+			}//Fin Switch
+			
+		}//Fin IF --> Comprobación
+		
+		//Sumamos uno al contador
+		contadores[menuElegido-1] += 1;
+		
+	}//Fin cuentaOpciones()
 	
 }
