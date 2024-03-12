@@ -11,6 +11,23 @@ public class Almacen {
 
 	/* Atributos */
 	/**
+	 *  Opciones GESTISIMAL
+	 */
+	final String[] OPCIONES_ALMACEN = new String[] {
+			"Listado",
+			"Alta",
+			"Baja",
+			"Modificación",
+			"Entrada de Mercancía",
+			"Salida de Mercancía",
+			"Salir"};
+	
+	/**
+	 * Menú del almacen
+	 */
+	public Menu menuAlmacen = new Menu(this.OPCIONES_ALMACEN);
+	
+	/**
 	 * Cantidad máxima de articulos en el almacen
 	 */
 	public static final int MAX_ARTICULOS = 20;

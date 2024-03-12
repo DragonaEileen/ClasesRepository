@@ -4,16 +4,8 @@ import java.util.Scanner;
 
 public class Principal {
 	
-	/* Atributos */
-	/**
-	 * Aula de Alumnos
-	 */
-	private static Aula aulaDePrueba = new Aula();
-	
-	/**
-	 * Almacen de Articulos
-	 */
-	private static Almacen almacenDePrueba = new Almacen();
+	/* Declaramos un scanner estatico para que toda la clase lo pueda utilizar */
+	public static Scanner scannercito;
 
 	/* Metodo Main */
 	public static void main(String[] args) {
@@ -27,23 +19,7 @@ public class Principal {
 				"Cuentas Corrientes",
 				"Salir"};
 		
-			/* Opciones de Alumnos */
-		final String[] OPCIONES_ALUMNOS = new String[] {
-				 "Listado",
-				 "Nuevo Alumno",
-				 "Modificar",
-				 "Borrar",
-				 "Salir"};
 		
-			/* Opciones GESTISIMAL */
-		final String[] OPCIONES_ALMACEN = new String[] {
-				"Listado",
-				"Alta",
-				"Baja",
-				"Modificación",
-				"Entrada de Mercancía",
-				"Salida de Mercancía",
-				"Salir"};
 		
 			/* Menú de menús */
 		Menu mainMenu = new Menu(OPCIONES_MAIN);
@@ -52,7 +28,7 @@ public class Principal {
 		int chosenOption;
 		
 		/* Apertura de Scanner */
-		Scanner scannercito = new Scanner(System.in);
+		scannercito = new Scanner(System.in);
 		
 		/* Operaciones */
 		do {
@@ -71,29 +47,8 @@ public class Principal {
 				
 			}while(chosenOption < 1 || chosenOption > OPCIONES_MAIN.length);
 				
-			//Según la opción usamos un switch para seleccionar el menu ejercicio
-			switch(chosenOption) {
-			
-			//Caso del Ejercicio de los Alumnos
-				case 1:
-					
-					//Llamamos a la elección del ejercicio
-					eleccionDeEjercicio(OPCIONES_ALUMNOS, chosenOption, scannercito);
-					
-					break;
-					
-			//Caso del ejercicio del Almacen
-				case 2:
-					
-					eleccionDeEjercicio(OPCIONES_ALMACEN, chosenOption, scannercito);
-					
-					break;
-					
-				default:
-					
-					break;
-					
-			};//Fin switch
+			//LLamamos a la elección del ejercicio
+			eleccionDeEjercicio(chosenOption);
 			
 		}while(chosenOption != OPCIONES_MAIN.length);
 		
@@ -109,18 +64,26 @@ public class Principal {
 	 * @param listadoDeObjetos Lista de Objetos con la que el ejercicio va a trabajar
 	 * @param scannercito Scanner con el objetivo de no abrir dos scanners al mismo tiempo
 	 */
-	private static void eleccionDeEjercicio(final String[] OPCIONES, int menuElegido, Scanner scannercito) {
+	private static void eleccionDeEjercicio(int menuElegido) {
 		
 		/* Declaraciones */
-			/* Menú del ejercicio */
-		Menu menuEjercicio;
+			/* Aula de Alumnos */
+		Aula aulaDePrueba;
+		
+			/* Contador de cuantas veces se ha elegido la opción aula */
+		int contadorAula = 0;
+		
+			/* Almacen de Articulos */
+		Almacen almacenDePrueba;
+			
+			/* Contador de cuantas veces se ha elegido la opción almacen */
+		int contadorAlmacen = 0;
 		
 			/* Opción elegida de los menus */
 		int chosenOption;
 		
 		/* Operaciones */
 		//Se selecciona el Menu Almacen
-		menuEjercicio = new Menu(OPCIONES);
 		
 		/* Operaciones de Almacen */
 		do {
@@ -140,19 +103,8 @@ public class Principal {
 				
 			}while(chosenOption < 1 || chosenOption > OPCIONES.length);
 			
-			//Llamamos a la función equivalente con un switch
-			switch(menuElegido) {
-			
-			case 1: 
-				
-				aulaDePrueba.startEjercicio(chosenOption, scannercito);
-				break;
-			
-			case 2:
-				
-				almacenDePrueba.
-				
-			};	
+			//Llamamos a la función equivalente
+			startEjercicio(chosenOption, scannercito);
 				
 		}while(chosenOption != OPCIONES.length);
 
@@ -161,4 +113,139 @@ public class Principal {
 		
 	}//Fin eleccionDeEjercicio()
 
+	/**
+	 * Método para ejecutar la opción elegida en el menu 
+	 * 
+	 * @param chosenOption
+	 */
+	private static void startEjercicio(int chosenOption, Scanner scannercito) {
+		
+		/* Declaraciones */
+			/* Boolean que indica el exito de operaciones */
+		boolean hasSucceded;
+			
+			/* Nombre del alumno a añadir */
+		String nombreAlumno = "";
+		
+			/* Nota Media del Alumno a añadir */
+		double notaMedia = 0;
+		
+		//Switch para ejecutar el metodo de la opción elegida dada
+		switch(chosenOption) {
+		
+			//El primer caso muestra los alumnos en el Aula
+			case 1:
+				
+				//Imprimimos los datos
+				System.out.println("\n" + toString());
+				break;
+				
+			//El segundo caso añade un alumno al Aula
+			case 2:
+				
+				/* Recogemos los datos del alumno a añadir */
+				//Usamos un do-while para que la nota media no supere ni diez ni sea menor a 0
+				do {
+					
+					//Scanner cleaning
+					nombreAlumno = scannercito.nextLine();
+					
+					//Nombre
+					System.out.print("Introduce el nombre del alumno: ");
+					nombreAlumno = scannercito.nextLine();
+					
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.next();
+					
+					//Nota Media
+					System.out.print("Introduce la nota media del alumno: ");
+					notaMedia = scannercito.nextDouble();
+					
+				}while(notaMedia < 0 || notaMedia > 10);
+				
+				/* Ejecutamos la función de añadir alumno */
+				hasSucceded = addAlumno(nombreAlumno, notaMedia);
+				
+				//Mensaje de éxito
+				successMessage(hasSucceded);
+				
+				//Break Switch Statement
+				break;
+				
+			//El tercer caso modifica un alumno del aula
+			case 3:
+				
+				//Scanner cleaning
+				nombreAlumno = scannercito.nextLine();
+				
+				/* Recogemos el nombre del Alumno a modificar */
+				System.out.print("Introduce el nombre del alumno a modificar: ");
+				nombreAlumno = scannercito.nextLine();
+				
+				/* Recogemos la nueva nota */
+				//Do-While evita numeros menores a 0 o mayores a 10
+				do {
+					
+					System.out.print("Introduce la nueva nota: ");
+					notaMedia = scannercito.nextDouble();
+					
+				}while(notaMedia < 0 || notaMedia > 10);
+				
+				/* Ejecutamos la funcion de modificar alumno */
+				hasSucceded = modifyAlumno(nombreAlumno, notaMedia);
+				
+				//Mensaje de éxito
+				successMessage(hasSucceded);
+
+				/* Switch Break Statement */
+				break;
+				
+			//Opción para borrar un alumno
+			case 4:
+				
+				//Scanner cleaning
+				nombreAlumno = scannercito.nextLine();
+				
+				/* Recogida del Nombre del Alumno */
+				System.out.print("Introduce el nombre del alumno a borrar: ");
+				nombreAlumno = scannercito.nextLine();
+				
+				//Scanner Cleaning
+				System.out.print("Confirmar (Pulse cualquier tecla): ");
+				scannercito.next();
+				
+				/* Ejecutamos la función de borrado */
+				hasSucceded = deleteAlumno(nombreAlumno);
+				
+				//Mensaje de éxito
+				successMessage(hasSucceded);
+
+				/* Switch Break Statement */
+				break;
+				
+			default:
+				
+				
+		}//Fin Switch --> Ejecutar Opción
+		
+	}//Fin startEjercicio()
+
+	
+	
+	/**
+	 * Método para imprimir si la operación ha sido realizada con exito
+	 */
+	private void successMessage(boolean hasSucceded) {
+		if(hasSucceded) {
+			
+			System.out.println("Operación realizada con éxito.");
+			
+		} else {
+			
+			System.out.println("La operación no se ha podido realizar");
+			
+		}//Fin IF --> Exito
+	}
+	
 }

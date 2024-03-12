@@ -11,6 +11,21 @@ public class Aula extends Object{
 
 	/* Atributos */
 	/**
+	 *  Opciones del menu aula 
+	 */
+	final String[] OPCIONES_ALUMNOS = new String[] {
+			 "Listado",
+			 "Nuevo Alumno",
+			 "Modificar",
+			 "Borrar",
+			 "Salir"};
+	
+	/**
+	 * Menú de aula
+	 */
+	public Menu menuAula = new Menu(this.OPCIONES_ALUMNOS);
+	
+	/**
 	 * Listado de los ALumnos que hay en el Aula
 	 */
 	private Alumno[] alumnosEnAula = new Alumno[30];
