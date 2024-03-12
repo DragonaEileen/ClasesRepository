@@ -13,6 +13,7 @@ public class Principal {
 	/**
 	 * Almacen de Articulos
 	 */
+	private static Almacen almacenDePrueba = new Almacen();
 
 	/* Metodo Main */
 	public static void main(String[] args) {
@@ -149,7 +150,7 @@ public class Principal {
 			
 			case 2:
 				
-				
+				almacenDePrueba.
 				
 			};	
 				
