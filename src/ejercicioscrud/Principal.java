@@ -150,7 +150,7 @@ public class Principal {
 			
 			case 2:
 				
-				almacenDePrueba.
+				almacenDePrueba.startEjercicio(chosenOption, scannercito);
 				
 			};	
 				

@@ -72,7 +72,7 @@ public class Almacen {
 		while(!hasSucceded && posicion < this.listadoDeArticulos.length) {
 			
 			//Comprobamos si la posicion en la que estamos esta vacia
-			if(this.listadoDeArticulos[posicion] != null) {
+			if(this.listadoDeArticulos[posicion] == null) {
 				
 				//Asignamos el nuevo articulo a la posicion vacia
 				this.listadoDeArticulos[posicion] = new Articulo(codigoID, descripcionArticulo, precioDeCompra, precioDeVenta, articleStock);
@@ -267,43 +267,85 @@ public class Almacen {
 		/* Declaraciones */
 			/* Boolean que indica el exito de operaciones */
 		boolean hasSucceded;
+		
+			/* Codigo del articulo a usar */
+		String codigoID = "";
+		
+			/* Descripción del articulo a usar */
+		String articleDescription = "";
+		
+			/* Precio de Compra del articulo a usar */
+		double precioDeCompra = 0;
+			
+			/* Precio de Compra del articulo a usar */
+		double precioDeVenta = 0;
+		
+			/* Stock del articulo a usar */
+		int articleStock = 0;
+		
+			/* Quantity de entrada o salida */
+		int quantity = 0;
 			
 		//Switch para ejecutar el metodo de la opción elegida dada
 		switch(chosenOption) {
 		
-			//El primer caso muestra los alumnos en el Aula
+			//El primer caso muestra los articulos en el Almacen
 			case 1:
 				
 				//Imprimimos los datos
 				System.out.println("\n" + toString());
 				break;
 				
-			//El segundo caso añade un alumno al Aula
+			//El segundo caso añade un nuevo articulo al Almacen
 			case 2:
 				
-				/* Recogemos los datos del alumno a añadir */
+				/* Recogemos los datos del almacen a añadir */
 				//Usamos un do-while para que la nota media no supere ni diez ni sea menor a 0
 				do {
 					
 					//Scanner cleaning
-					nombreAlumno = scannercito.nextLine();
+					codigoID = scannercito.nextLine();
 					
-					//Nombre
-					System.out.print("Introduce el nombre del alumno: ");
-					nombreAlumno = scannercito.nextLine();
+					//Codigo
+					System.out.print("Introduce el codigo del articulo nuevo: ");
+					codigoID = scannercito.nextLine();
+
+//					//Scanner Cleaning
+//					System.out.print("Confirmar (Pulse cualquier tecla): ");
+//					articleDescription = scannercito.nextLine();
 					
-					//Scanner Cleaning
-					System.out.print("Confirmar (Pulse cualquier tecla): ");
-					scannercito.next();
+					//Descripción
+					System.out.print("Introduce la descripción del aarticulo nuevo: ");
+					articleDescription = scannercito.nextLine();
+
+//					//Scanner Cleaning
+//					System.out.print("Confirmar (Pulse cualquier tecla): ");
+//					scannercito.nextLine();
 					
-					//Nota Media
-					System.out.print("Introduce la nota media del alumno: ");
-					notaMedia = scannercito.nextDouble();
+					//Precio de Compra
+					System.out.print("Introduce el precio de compra del aarticulo nuevo: ");
+					precioDeCompra = scannercito.nextDouble();
 					
-				}while(notaMedia < 0 || notaMedia > 10);
+//					//Scanner Cleaning
+//					System.out.print("Confirmar (Pulse cualquier tecla): ");
+//					scannercito.nextLine();
+					
+					//Precio de Venta
+					System.out.print("Introduce el precio de venta del aarticulo nuevo: ");
+					precioDeVenta = scannercito.nextDouble();
+					
+//					//Scanner Cleaning
+//					System.out.print("Confirmar (Pulse cualquier tecla): ");
+//					scannercito.nextLine();
+					
+					//Stock
+					System.out.print("Introduce el stock del aarticulo nuevo: ");
+					articleStock = scannercito.nextInt();
+					
+				}while(precioDeCompra < 0 || precioDeVenta < 0 || articleStock < 0);
 				
 				/* Ejecutamos la función de añadir alumno */
-				hasSucceded = addAlumno(nombreAlumno, notaMedia);
+				hasSucceded = darDeAlta(codigoID, articleDescription, precioDeCompra, precioDeVenta, articleStock);
 				
 				//Mensaje de Exito
 				if(hasSucceded) {
@@ -319,27 +361,18 @@ public class Almacen {
 				//Break Switch Statement
 				break;
 				
-			//El tercer caso modifica un alumno del aula
+			//El tercer caso da de baja un articulo del almacen
 			case 3:
 				
 				//Scanner cleaning
-				nombreAlumno = scannercito.nextLine();
+				codigoID = scannercito.nextLine();
 				
-				/* Recogemos el nombre del Alumno a modificar */
-				System.out.print("Introduce el nombre del alumno a modificar: ");
-				nombreAlumno = scannercito.nextLine();
-				
-				/* Recogemos la nueva nota */
-				//Do-While evita numeros menores a 0 o mayores a 10
-				do {
-					
-					System.out.print("Introduce la nueva nota: ");
-					notaMedia = scannercito.nextDouble();
-					
-				}while(notaMedia < 0 || notaMedia > 10);
+				//Codigo
+				System.out.print("Introduce el codigo del articulo nuevo: ");
+				codigoID = scannercito.nextLine();
 				
 				/* Ejecutamos la funcion de modificar alumno */
-				hasSucceded = modifyAlumno(nombreAlumno, notaMedia);
+				hasSucceded = darDeBaja(codigoID);
 				
 				//Mensaje de exito
 				if(hasSucceded) {
@@ -355,22 +388,56 @@ public class Almacen {
 				/* Switch Break Statement */
 				break;
 				
-			//Opción para borrar un alumno
+			//El cuarto caso modifica un articulo del almacen
 			case 4:
 				
-				//Scanner cleaning
-				nombreAlumno = scannercito.nextLine();
+				//Do-While for non negative values purposes
+				do {
+					
+					//Scanner cleaning
+					codigoID = scannercito.nextLine();
+					
+					//Codigo
+					System.out.print("Introduce el codigo del articulo nuevo: ");
+					codigoID = scannercito.nextLine();
+
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.nextLine();
+					
+					//Descripción
+					System.out.print("Introduce la descripción del aarticulo nuevo: ");
+					articleDescription = scannercito.nextLine();
+
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.nextLine();
+					
+					//Precio de Compra
+					System.out.print("Introduce el precio de compra del aarticulo nuevo: ");
+					precioDeCompra = scannercito.nextDouble();
+					
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.nextLine();
+					
+					//Precio de Venta
+					System.out.print("Introduce el precio de venta del aarticulo nuevo: ");
+					precioDeVenta = scannercito.nextDouble();
+					
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.nextLine();
+					
+					//Stock
+					System.out.print("Introduce el stock del aarticulo nuevo: ");
+					articleStock = scannercito.nextInt();
+					
+				}while(precioDeCompra < 0 || precioDeVenta < 0 || articleStock < 0);
 				
-				/* Recogida del Nombre del Alumno */
-				System.out.print("Introduce el nombre del alumno a borrar: ");
-				nombreAlumno = scannercito.nextLine();
+				/* Ejecutamos la función de añadir alumno */
+				hasSucceded = modifyArticle(codigoID, articleDescription, precioDeCompra, precioDeVenta, articleStock);
 				
-				//Scanner Cleaning
-				System.out.print("Confirmar (Pulse cualquier tecla): ");
-				scannercito.next();
-				
-				/* Ejecutamos la función de borrado */
-				hasSucceded = deleteAlumno(nombreAlumno);
 				
 				//Mensaje de éxito
 				if(hasSucceded) {
@@ -386,6 +453,78 @@ public class Almacen {
 				/* Switch Break Statement */
 				break;
 				
+				//Caso de entrada de mercancía
+			case 5:
+				
+				do {
+				
+					//Scanner cleaning
+					codigoID = scannercito.nextLine();
+					
+					//Codigo
+					System.out.print("Introduce el codigo del articulo nuevo: ");
+					codigoID = scannercito.nextLine();
+					
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.nextLine();
+					
+					//Quantity
+					System.out.print("Introduce la cantidad añadida: ");
+					quantity = scannercito.nextInt();
+				
+				}while(quantity < 1);
+				
+				/* Ejecutamos la funcion de entrada alumno */
+				hasSucceded = entradaDeMercancia(codigoID, quantity);
+				
+				//Mensaje de exito
+				if(hasSucceded) {
+					
+					System.out.println("Operación realizada con éxito.");
+					
+				} else {
+					
+					System.out.println("La operación no se ha podido realizar");
+					
+				}//Fin IF --> Exito
+				
+				break;
+				
+			case 6:
+				
+				do {
+				
+					//Scanner cleaning
+					codigoID = scannercito.nextLine();
+					
+					//Codigo
+					System.out.print("Introduce el codigo del articulo nuevo: ");
+					codigoID = scannercito.nextLine();
+					
+					//Scanner Cleaning
+					System.out.print("Confirmar (Pulse cualquier tecla): ");
+					scannercito.nextLine();
+					
+					//Quantity
+					System.out.print("Introduce la cantidad sacada: ");
+					quantity = scannercito.nextInt();
+				
+				}while(quantity < 1);
+				
+				/* Ejecutamos la funcion de entrada alumno */
+				hasSucceded = salidaDeMercancia(codigoID, quantity);
+				
+				//Mensaje de exito
+				if(hasSucceded) {
+					
+					System.out.println("Operación realizada con éxito.");
+					
+				} else {
+					
+					System.out.println("La operación no se ha podido realizar");
+					
+				}//Fin IF --> Exito
 			default:
 				
 				
